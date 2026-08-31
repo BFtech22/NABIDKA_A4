@@ -3422,6 +3422,7 @@
   }
 
   function bindKonstrukceType() {
+    ensureKonstrukceOptions();
     const sel = document.getElementById('konstrukce-type-select');
     if (!sel) return;
     sel.addEventListener('change', () => applyKonstrukceType(sel));
@@ -5055,6 +5056,18 @@
     const sig = TEMPLATE_SIGNATURES[key];
     return !sig || (typeof html === 'string' && html.includes(sig));
   }
+  // Uložené karty (data-save="cards") jsou z dřívější verze a nemají novější volby
+  // konstrukce. Zahodit celý blok nelze — přišel bys o úpravy karet. Doplní se tedy jen chybějící.
+  function ensureKonstrukceOptions() {
+    const sel = document.getElementById('konstrukce-type-select');
+    if (!sel || typeof KONSTRUKCE_TYPES === 'undefined') return;
+    Object.entries(KONSTRUKCE_TYPES).forEach(([val, def]) => {
+      if (![...sel.options].some(o => o.value === val)) {
+        sel.appendChild(new Option(def.name, val));
+      }
+    });
+  }
+
   function restoreHtmlBlocks(htmlMap) {
     let skipped = [];
     Object.entries(htmlMap || {}).forEach(([k, v]) => {
@@ -5068,6 +5081,7 @@
       const t = (d.firstChild && d.firstChild.nodeValue) || '';
       if (/zprovozn\w*\s+wallboxu/i.test(t)) d.remove();
     });
+    ensureKonstrukceOptions();
     if (skipped.length && typeof flashStatus === 'function') {
       setTimeout(() => flashStatus('↻ Aktualizováno ze šablony: ' + skipped.join(', ')), 900);
     }
