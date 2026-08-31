@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>BF Technology · Cenová nabídka FVE · A4</title>
+<title>BF technology · Cenová nabídka FVE · A4</title>
 <link rel="icon" type="image/png" href="bft/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1404,6 +1404,12 @@
     background-position: right 4px center;
     border-radius: 3px;
   }
+  .kalkulator-screen .kalk-table tbody td input[data-kalk-jedn] {
+    color: #666; font-style: italic;
+  }
+  .kalkulator-screen .kalk-table tbody td input[data-kalk-jedn]:focus {
+    color: var(--black); font-style: normal;
+  }
   .kalkulator-screen .kalk-table tbody td.auto {
     color: #777; font-style: italic;
   }
@@ -2090,7 +2096,7 @@
 <!-- =========================== TOOLBAR =========================== -->
 <div class="toolbar no-print">
   <div class="tb-info">
-    <h3 id="toolbar-title">BF Technology · Cenová nabídka FVE · A4</h3>
+    <h3 id="toolbar-title">BF technology · Cenová nabídka FVE · A4</h3>
     <div class="firma-switch" id="firma-switch" title="Přepnout firmu — vymění logo, název, kontakty i barvy">
       <button type="button" data-firma-btn="bft" class="active">BFT</button>
       <button type="button" data-firma-btn="bfk">BFK</button>
@@ -2243,17 +2249,17 @@
         <h2>1 · Technologie — nákladová cena</h2>
         <table class="kalk-table" data-kalk-table="tech">
           <thead>
-            <tr><th>Položka</th><th>Počet</th><th>Bez DPH</th><th>Vč. DPH</th></tr>
+            <tr><th>Položka</th><th>Počet</th><th>Celkem bez DPH</th><th>Jedn. cena</th><th>Vč. DPH</th></tr>
           </thead>
           <tbody>
-            <tr><td><input type="text" value="FV panely"></td><td><input type="number" value="16" step="1"></td><td><input type="number" data-kalk-bez value="42000" step="100"></td><td class="auto" data-kalk-vc>0</td></tr>
-            <tr><td><input type="text" value="Střídač"></td><td><input type="number" value="1" step="1"></td><td><input type="number" data-kalk-bez value="23000" step="100"></td><td class="auto" data-kalk-vc>0</td></tr>
-            <tr><td><input type="text" value="Baterie"></td><td><input type="number" value="1" step="1"></td><td><input type="number" data-kalk-bez value="92000" step="100"></td><td class="auto" data-kalk-vc>0</td></tr>
-            <tr><td><input type="text" value="Wallbox"></td><td><select id="kalk-wallbox-count" data-kalk-qty><option value="0">0</option><option value="1" selected>1</option><option value="2">2</option><option value="3">3</option></select></td><td><input type="number" data-kalk-bez value="9000" step="100"></td><td class="auto" data-kalk-vc>0</td></tr>
-            <tr><td><select data-kalk-optimizer><option value="TS4-A-2F" selected>STOP tlačítko · TS4-A-2F (jen rapid shutdown)</option><option value="TS4-A-O">Optimizer · TS4-A-O (s RSS)</option><option value="TS4-X-O">Optimizer · TS4-X-O (X-series + RSS)</option><option value="none">STOP tlačítko · není (kartu skrýt)</option></select></td><td><input type="number" value="16" step="1"></td><td><input type="number" data-kalk-bez value="13000" step="100"></td><td class="auto" data-kalk-vc>0</td></tr>
+            <tr><td><input type="text" value="FV panely"></td><td><input type="number" value="16" step="1"></td><td><input type="number" data-kalk-bez value="42000" step="100"></td><td><input type="number" data-kalk-jedn step="10" placeholder="—"></td><td class="auto" data-kalk-vc>0</td></tr>
+            <tr><td><input type="text" value="Střídač"></td><td><input type="number" value="1" step="1"></td><td><input type="number" data-kalk-bez value="23000" step="100"></td><td><input type="number" data-kalk-jedn step="10" placeholder="—"></td><td class="auto" data-kalk-vc>0</td></tr>
+            <tr><td><input type="text" value="Baterie"></td><td><input type="number" value="1" step="1"></td><td><input type="number" data-kalk-bez value="92000" step="100"></td><td><input type="number" data-kalk-jedn step="10" placeholder="—"></td><td class="auto" data-kalk-vc>0</td></tr>
+            <tr><td><input type="text" value="Wallbox"></td><td><select id="kalk-wallbox-count" data-kalk-qty><option value="0">0</option><option value="1" selected>1</option><option value="2">2</option><option value="3">3</option></select></td><td><input type="number" data-kalk-bez value="9000" step="100"></td><td><input type="number" data-kalk-jedn step="10" placeholder="—"></td><td class="auto" data-kalk-vc>0</td></tr>
+            <tr><td><select data-kalk-optimizer><option value="TS4-A-2F" selected>STOP tlačítko · TS4-A-2F (jen rapid shutdown)</option><option value="TS4-A-O">Optimizer · TS4-A-O (s RSS)</option><option value="TS4-X-O">Optimizer · TS4-X-O (X-series + RSS)</option><option value="none">STOP tlačítko · není (kartu skrýt)</option></select></td><td><input type="number" value="16" step="1"></td><td><input type="number" data-kalk-bez value="13000" step="100"></td><td><input type="number" data-kalk-jedn step="10" placeholder="—"></td><td class="auto" data-kalk-vc>0</td></tr>
           </tbody>
           <tfoot>
-            <tr><td colspan="2">Celkem náklady</td><td data-kalk-cat-bez="tech">0</td><td data-kalk-cat-vc="tech">0</td></tr>
+            <tr><td colspan="2">Celkem náklady</td><td data-kalk-cat-bez="tech">0</td><td></td><td data-kalk-cat-vc="tech">0</td></tr>
           </tfoot>
         </table>
         <div class="kalk-zakaznik-row">
@@ -2268,15 +2274,15 @@
         <h2>2 · Konstrukce a elektromateriál — nákladová cena</h2>
         <table class="kalk-table" data-kalk-table="konstr">
           <thead>
-            <tr><th>Položka</th><th>Počet</th><th>Bez DPH</th><th>Vč. DPH</th></tr>
+            <tr><th>Položka</th><th>Počet</th><th>Celkem bez DPH</th><th>Jedn. cena</th><th>Vč. DPH</th></tr>
           </thead>
           <tbody>
-            <tr><td><input type="text" value="Konstrukce"></td><td><input type="number" value="1" step="1"></td><td><input type="number" data-kalk-bez value="37000" step="100"></td><td class="auto" data-kalk-vc>0</td></tr>
-            <tr><td><input type="text" value="Rozvaděč"></td><td><input type="number" value="1" step="1"></td><td><input type="number" data-kalk-bez value="20000" step="100"></td><td class="auto" data-kalk-vc>0</td></tr>
-            <tr><td><input type="text" value="Kabeláž"></td><td><input type="number" value="1" step="1"></td><td><input type="number" data-kalk-bez value="18000" step="100"></td><td class="auto" data-kalk-vc>0</td></tr>
+            <tr><td><input type="text" value="Konstrukce"></td><td><input type="number" value="1" step="1"></td><td><input type="number" data-kalk-bez value="37000" step="100"></td><td><input type="number" data-kalk-jedn step="10" placeholder="—"></td><td class="auto" data-kalk-vc>0</td></tr>
+            <tr><td><input type="text" value="Rozvaděč"></td><td><input type="number" value="1" step="1"></td><td><input type="number" data-kalk-bez value="20000" step="100"></td><td><input type="number" data-kalk-jedn step="10" placeholder="—"></td><td class="auto" data-kalk-vc>0</td></tr>
+            <tr><td><input type="text" value="Kabeláž"></td><td><input type="number" value="1" step="1"></td><td><input type="number" data-kalk-bez value="18000" step="100"></td><td><input type="number" data-kalk-jedn step="10" placeholder="—"></td><td class="auto" data-kalk-vc>0</td></tr>
           </tbody>
           <tfoot>
-            <tr><td colspan="2">Celkem náklady</td><td data-kalk-cat-bez="konstr">0</td><td data-kalk-cat-vc="konstr">0</td></tr>
+            <tr><td colspan="2">Celkem náklady</td><td data-kalk-cat-bez="konstr">0</td><td></td><td data-kalk-cat-vc="konstr">0</td></tr>
           </tfoot>
         </table>
         <div class="kalk-zakaznik-row">
@@ -2359,7 +2365,7 @@
             <tr><td>BFA, BFE vč. odvodů</td><td><input type="number" id="kalk-bfa" value="40000" step="500"></td></tr>
             <tr><td>Revize</td><td><input type="number" id="kalk-revize" value="2500" step="100"></td></tr>
             <tr><td>Provozní náklady celkem</td><td id="kalk-naklady-total">0</td></tr>
-            <tr class="row-cisty-zisk"><td>Čistý zisk BF Technology</td><td id="kalk-cisty-zisk">0</td></tr>
+            <tr class="row-cisty-zisk"><td>Čistý zisk BF technology</td><td id="kalk-cisty-zisk">0</td></tr>
           </tbody>
         </table>
       </div>
@@ -2568,7 +2574,7 @@
   <div class="gradient-overlay"></div>
   <div class="content">
     <div class="top-row">
-      <img class="logo-white" src="bft/BFT_LOGO_WHITE.png" alt="BF Technology">
+      <img class="logo-white" src="bft/BFT_LOGO_WHITE.png" alt="BF technology">
       <div class="corner" contenteditable="true" data-save="titulni-corner" title="Klikni pro úpravu — přidej/odeber řádky Enterem/Delete">Kalkulační list FVE
         <div class="badge">Kalkulace č. · <span data-field="cislo" contenteditable="false">932621</span></div>
       </div>
@@ -2599,14 +2605,14 @@
       <div class="title-kontakty" contenteditable="true" data-save="title-kontakty"><b>Smluvní:</b> PhDr. Jan Böhme · +420 776 111 100 · info@bftechnology.cz &nbsp;·&nbsp; <b>Technický:</b> Petr Fencl · servis@bftechnology.cz &nbsp;·&nbsp; IČO 17258529 · DIČ CZ17258529</div>
       <div class="bottom-row">
         <div class="left">
-          <b>BF Technology s. r. o.</b> &nbsp;·&nbsp; info@bftechnology.cz &nbsp;·&nbsp; www.bftechnology.cz
+          <b>BF technology s.r.o.</b> &nbsp;·&nbsp; info@bftechnology.cz &nbsp;·&nbsp; www.bftechnology.cz
           <div class="title-socials">
-            <a href="https://www.instagram.com/bftechnology_sro/" target="_blank" rel="noopener" title="Instagram BF Technology">
+            <a href="https://www.instagram.com/bftechnology_sro/" target="_blank" rel="noopener" title="Instagram BF technology">
               <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63 3.35.94 2.68 1.35 2.01 2.01 1.35 2.68.94 3.35.63 4.14.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.31.79.72 1.46 1.38 2.13.67.66 1.34 1.07 2.13 1.38.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56.79-.31 1.46-.72 2.13-1.38.66-.67 1.07-1.34 1.38-2.13.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91a5.9 5.9 0 0 0-1.38-2.13A5.9 5.9 0 0 0 19.86.63c-.76-.3-1.64-.5-2.91-.56C15.67.01 15.26 0 12 0zm0 5.84a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32zm0 10.16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm7.85-10.4a1.44 1.44 0 1 1-2.88 0 1.44 1.44 0 0 1 2.88 0z"/></svg>
               @bftechnology_sro
             </a>
             <span class="dot">·</span>
-            <a href="https://www.facebook.com/BFtechnologyCZ" target="_blank" rel="noopener" title="Facebook BF Technology">
+            <a href="https://www.facebook.com/BFtechnologyCZ" target="_blank" rel="noopener" title="Facebook BF technology">
               <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M24 12.07C24 5.4 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.5h3.05V9.41c0-3.02 1.79-4.69 4.53-4.69 1.31 0 2.69.24 2.69.24v2.97h-1.52c-1.49 0-1.96.93-1.96 1.89v2.26h3.33l-.53 3.5h-2.8V24C19.61 23.1 24 18.1 24 12.07z"/></svg>
               BFtechnologyCZ
             </a>
@@ -2636,7 +2642,7 @@
 <!-- =========================== PAGE 2 — POUŽITÉ TECHNOLOGIE =========================== -->
 <section class="page">
   <div class="mini-header">
-    <img class="logo" src="bft/BFT_LOGO_TRANSPARENT.png" alt="BF Technology">
+    <img class="logo" src="bft/BFT_LOGO_TRANSPARENT.png" alt="BF technology">
     <div class="right">
       <div class="meta-line">
         <span class="lbl">Kalkulace č.:</span> <span class="val" data-field="cislo">932621</span>
@@ -2727,6 +2733,7 @@
         <option value="hak" selected>Střešní hák</option>
         <option value="falc">Falcová příchytka</option>
         <option value="zatez">Zátěžová konstrukce</option>
+        <option value="kombi">Kombišroub</option>
       </select>
       <div class="brand-model-spacer" aria-hidden="true"></div>
       <dl>
@@ -2764,7 +2771,7 @@
 <!-- =========================== PAGE 3 — CENOVÁ KALKULACE + SOUHRN =========================== -->
 <section class="page">
   <div class="mini-header">
-    <img class="logo" src="bft/BFT_LOGO_TRANSPARENT.png" alt="BF Technology">
+    <img class="logo" src="bft/BFT_LOGO_TRANSPARENT.png" alt="BF technology">
     <div class="right">
       <div class="meta-line">
         <span class="lbl">Kalkulace č.:</span> <span class="val" data-field="cislo">932621</span>
@@ -2832,7 +2839,7 @@
 <!-- =========================== PAGE 4 — ROZSAH + PLATBY + SPOLUPRÁCE + KONTAKTY =========================== -->
 <section class="page page-compact">
   <div class="mini-header">
-    <img class="logo" src="bft/BFT_LOGO_TRANSPARENT.png" alt="BF Technology">
+    <img class="logo" src="bft/BFT_LOGO_TRANSPARENT.png" alt="BF technology">
     <div class="right">
       <div class="meta-line">
         <span class="lbl">Kalkulace č.:</span> <span class="val" data-field="cislo">932621</span>
@@ -2929,7 +2936,7 @@
   <div class="supplier" data-save="supplier">
     <div>
       <div class="cap">Dodavatel</div>
-      <div class="name" contenteditable="true">BF Technology s. r. o.</div>
+      <div class="name" contenteditable="true">BF technology s.r.o.</div>
       <div class="line" contenteditable="true">IČO 17258529 · DIČ CZ17258529</div>
       <div class="line" contenteditable="true">Obchodní 455/12, Děčín</div>
     </div>
@@ -2949,8 +2956,8 @@
 
   <div class="footer">
     <div class="logo-cell">
-      <img src="bft/BFT_LOGO_TRANSPARENT.png" alt="BF Technology">
-      <span>BF Technology s. r. o.</span>
+      <img src="bft/BFT_LOGO_TRANSPARENT.png" alt="BF technology">
+      <span>BF technology s.r.o.</span>
     </div>
     <div class="contacts">
       <div><span class="lbl">Tel</span>+420 776 111 100</div>
@@ -2965,7 +2972,7 @@
     </div>
     <div class="address">
       <div class="cap">Sídlo</div>
-      <div class="name">BF Technology s. r. o.</div>
+      <div class="name">BF technology s.r.o.</div>
       <div>Obchodní 455/12</div>
       <div>405 02 Děčín</div>
       <div class="ids">IČO 17258529 · DIČ CZ17258529</div>
@@ -3370,6 +3377,8 @@
              dl: { 'Orientace': 'libovolná', 'Materiál': 'nerez ocel', 'Vhodné pro': 'falcované plechové střechy', 'Záruka': '10 let' } },
     zatez: { name: 'Zátěžová konstrukce',  model: 'pozink ocel · ploché střechy',  file: 'zatez.jpg',
              dl: { 'Orientace': 'jih / V-Z', 'Materiál': 'pozink ocel + betonové bloky', 'Vhodné pro': 'ploché střechy (PVC, asfalt, kačírek)', 'Záruka': '10 let' } },
+    kombi: { name: 'Kombišroub',           model: 'nerez ocel · trapéz a vlnovka',  file: 'kombisroub.jpg',
+             dl: { 'Orientace': 'libovolná', 'Materiál': 'nerez ocel, EPDM podložka', 'Vhodné pro': 'trapézové a vlnité plechy, sendviče', 'Záruka': '10 let' } },
   };
 
   async function applyKonstrukceType(sel) {
@@ -3445,6 +3454,7 @@
     // Konstrukce — střešní hák / falcová příchytka / zátěžová konstrukce
     { file: 'hak.jpg',           category: /konstrukce|nosná|montáž/i,            brand: /hák|hak|střešn|šikm/i },
     { file: 'falc.jpg',          category: /konstrukce|nosná|montáž/i,            brand: /falc|příchyt|plech/i },
+    { file: 'kombisroub.jpg', category: /konstrukce|nosná|montáž/i,            brand: /kombišroub|kombisroub|trapéz|vlnovk/i },
     { file: 'zatez.jpg',         category: /konstrukce|nosná|montáž/i,            brand: /zátěž|zatez|ballast|ploch/i },
     // Fallback pro konstrukci pokud uživatel nepíše nic specifického — vezme hák
     { file: 'hak.jpg',           category: /konstrukce/i,                         brand: /.*/  },
@@ -3579,6 +3589,7 @@
       { vyrobce: 'Střešní hák',          model: '', foto: 'img/produkty/konstrukce/hak.jpg' },
       { vyrobce: 'Falcová příchytka',    model: '', foto: 'img/produkty/konstrukce/falc.jpg' },
       { vyrobce: 'Zátěžová konstrukce',  model: '', foto: 'img/produkty/konstrukce/zatez.jpg' },
+      { vyrobce: 'Kombišroub',           model: '', foto: 'img/produkty/konstrukce/kombisroub.jpg' },
     ],
   };
 
@@ -3849,9 +3860,11 @@
     let foto = prodFotoSrc(prod);
     if (foto.startsWith('data:')) foto = await zmensiFoto(foto, 700, 0.78);
     else if (!foto.startsWith('img/')) foto = '';
-    p.foto = foto;
 
     const stara = najdiVKatalogu(prod, p.vyrobce, p.model);
+    // Když na kartě fotka není, nepřepisuj prázdnou tu, která už v katalogu je.
+    if (!foto && stara && stara.foto) foto = stara.foto;
+    p.foto = foto;
     const zaloha = stara ? Object.assign({}, stara) : null;
     if (stara) Object.assign(stara, p);
     else (KATALOG[prod] = KATALOG[prod] || []).push(p);
@@ -3888,6 +3901,7 @@
       selM.value = p.model;
     }
     prodRow(prod)?.classList.remove('needs-save');
+    if (!p.foto) setTimeout(() => flashStatus('💾 Uloženo — bez fotky. Nahraj ji na kartu str. 3 nebo přes „📷 Fotky" a ulož znovu.'), 60);
     aktualizujPoctyFotek();
     flashStatus(bezFotky
       ? `💾 Uloženo: ${p.vyrobce} ${p.model} — ale na fotku už nezbylo místo`.trim()
@@ -4384,15 +4398,15 @@
     bindGalerie();
   }
 
-  // ================= PŘEPÍNAČ FIREM — BF Technology / BFK systems =================
+  // ================= PŘEPÍNAČ FIREM — BF technology / BFK Systems =================
   // Jedna nabídka, dvě firmy. Přepnutí vymění logo, název, kontakty, IČO/DIČ
   // a barevnou paletu (zelená BFT ↔ oranžová BFK). Layout zůstává identický.
   const FIRMA_KEY = STORAGE_KEY + ':firma';
   const FIRMY = {
     bft: {
       kod: 'bft',
-      nazev:  'BF Technology s. r. o.',
-      kratky: 'BF Technology',
+      nazev:  'BF technology s.r.o.',
+      kratky: 'BF technology',
       ico:    'IČO 17258529 · DIČ CZ17258529',
       email:  'info@bftechnology.cz',
       servis: 'servis@bftechnology.cz',
@@ -4400,12 +4414,12 @@
       domena: 'bftechnology.cz',
       logoWhite: 'bft/BFT_LOGO_WHITE.png',
       logoDark:  'bft/BFT_LOGO_TRANSPARENT.png',
-      titulek: 'BF Technology · Cenová nabídka FVE · A4',
+      titulek: 'BF technology · Cenová nabídka FVE · A4',
     },
     bfk: {
       kod: 'bfk',
-      nazev:  'BFK systems s. r. o.',
-      kratky: 'BFK systems',
+      nazev:  'BFK Systems s.r.o.',
+      kratky: 'BFK Systems',
       ico:    'IČO 23571853 · DIČ CZ23571853',
       email:  'info@bfksystems.cz',
       servis: 'servis@bfksystems.cz',
@@ -4413,7 +4427,7 @@
       domena: 'bfksystems.cz',
       logoWhite: 'bfk/BFK_LOGO_WHITE.png',
       logoDark:  'bfk/BFK_LOGO_TRANSPARENT.png',
-      titulek: 'BFK systems · Cenová nabídka FVE · A4',
+      titulek: 'BFK Systems · Cenová nabídka FVE · A4',
     },
   };
 
@@ -5359,6 +5373,38 @@
     const v = parseFloat(String(el.value).replace(',', '.'));
     return isNaN(v) ? 0 : v;
   }
+  // ---------- Jednotková cena ↔ celková cena ----------
+  // Napíšeš jednotkovou → dopočítá se celková (počet × jednotková).
+  // Napíšeš celkovou → dopočítá se jednotková (celková ÷ počet).
+  function prepocitejJedn(row, zdroj) {
+    if (!row) return;
+    const bez  = row.querySelector('[data-kalk-bez]');
+    const jedn = row.querySelector('[data-kalk-jedn]');
+    if (!bez || !jedn) return;
+    const q = rowQty(row);
+    if (zdroj === 'jedn') {
+      const j = parseFloat(String(jedn.value).replace(',', '.'));
+      if (!isNaN(j) && q > 0) bez.value = Math.round(j * q);
+    } else {
+      const b = parseFloat(String(bez.value).replace(',', '.'));
+      jedn.value = (!isNaN(b) && q > 0) ? Math.round(b / q * 100) / 100 : '';
+    }
+  }
+  function bindJednotkoveCeny() {
+    document.querySelectorAll('[data-kalk-table] tbody tr').forEach(row => {
+      if (row.dataset.jednBound) return;
+      row.dataset.jednBound = '1';
+      const bez  = row.querySelector('[data-kalk-bez]');
+      const jedn = row.querySelector('[data-kalk-jedn]');
+      const qty  = row.querySelector('[data-kalk-qty]') || row.querySelectorAll('input, select')[1];
+      jedn?.addEventListener('input',  () => { prepocitejJedn(row, 'jedn'); recalcKalk(); });
+      bez?.addEventListener('input',   () => { prepocitejJedn(row, 'bez');  });
+      qty?.addEventListener('input',   () => { prepocitejJedn(row, 'jedn'); recalcKalk(); });
+      qty?.addEventListener('change',  () => { prepocitejJedn(row, 'jedn'); recalcKalk(); });
+      prepocitejJedn(row, 'bez');   // dopočítat jednotkovou z toho, co už je vyplněné
+    });
+  }
+
   // množství v řádku (input nebo select); chybí-li, ber 1
   function rowQty(row) {
     const q = row.querySelector('[data-kalk-qty]') || row.querySelectorAll('input, select')[1];
@@ -5546,6 +5592,11 @@
       const trs = mainTfoot.querySelectorAll('tr');
       setFooterPriceCell(trs[0], fmtKc(data.faktBez));   // bez DPH
       setFooterPriceCell(trs[1], fmtKc(data.faktVc));    // s DPH
+      // Popisek sazby DPH musí následovat výběr v sekci 2 — dřív tu bylo natvrdo „12 %"
+      const dphLbl = trs[1]?.querySelector('td');
+      if (dphLbl && /celkem/i.test(dphLbl.textContent)) {
+        dphLbl.textContent = `Celkem s ${getDph()} % DPH`;
+      }
     }
     // Page 5 — payment cards (recompute amounts shown next to %)
     document.querySelectorAll('.pay-amount').forEach(el => {
@@ -5713,6 +5764,7 @@
     bindVykonManual();
     bindVykonRecalcTriggers();
     bindHeroBullets();
+    bindJednotkoveCeny();
     bindWallboxCount();
     bindFirmaSwitch();   // až po loadState — přepíše i text obnovený z localStorage
 

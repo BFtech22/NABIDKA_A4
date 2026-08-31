@@ -55,6 +55,12 @@ _(prázdné = nikdo, můžeš začít)_
   používej `cardBrandText()`.
 - **Popisky v cenové kalkulaci se skládají, neparsují.** Koncovka je v `data-suffix` buňky.
   Parsování textu kdysi způsobilo nabalování („− 21 kWh − 21 kWh − …").
+- **Řádek cenové kalkulace si může „zabrat" cizí karta.** `mainCellsForClass()` páruje
+  neoznačené buňky regulárem podle textu (`úložiště`, `baterie`, `konstrukce`…) a pak je
+  přepíše. Obecné řádky (rozvaděče, kabeláž, práce) proto označ `data-card="none"`.
+- **Hodnota v `dl` karty se vkládá do `data-suffix`.** Když hodnota obsahuje slovo navíc
+  („4,8 kWh nominálně"), `syncMainTableDl()` ho při každém průchodu přilepí znovu.
+  Do hodnoty patří jen číslo s jednotkou, upřesnění dej do popisku `dt`.
 - **PNG fotky nafukují PDF.** Chrome je vkládá bezztrátově (770 kB → 3,3 MB). Fotky patří
   jako JPEG; průhlednost před převodem podložit **bílou** (jinak vyjde černá).
 - **Průhlednost v paletovém PNG** (`mode='P'`) běžná detekce alfa kanálu mine.
@@ -71,6 +77,10 @@ _(prázdné = nikdo, můžeš začít)_
 | 15. 8. | Platby 20 / 30 / 40 / 10 % + migrace `TEMPLATE_SIGNATURES` pro uložené nabídky |
 | 15. 8. | Patička: IČO/DIČ až za adresu; lišta na dva řádky, ať s ní přepínač BFT/BFK nehýbe |
 | 16. 8. | Katalog výrobců, galerie fotek podle kategorie, sekce 6 přes celou šířku (druhá session) |
+| 19. 8. | Patička kalkulace bere sazbu z výběru DPH (`propagateKalkToOffer`) — dřív tam bylo natvrdo „12 %“, takže nabídka na 21 % lhala v součtu |
+| 19. 8. | Fotky do katalogu: `stridace/mps.jpg` (off-grid měnič MPS-5500H), `baterie/vipow.jpg` (LiFePO4 BAT0499) |
+| 19. 8. | Fotky do katalogu: `stridace/victron-easysolar-ii.jpg`, `baterie/pylontech-us5000.jpg` (pozor: `baterie/pylontech.jpg` je Force H tower, ne US5000) |
+| 19. 8. | Právní názvy firem opraveny dle OR: **BF technology s.r.o.** a **BFK Systems s.r.o.** (statické texty na str. 1/4, patička, `FIRMY` v přepínači, alt/title, `<title>`) |
 
 ## Co zbývá
 
