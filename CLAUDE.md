@@ -80,6 +80,7 @@ _(prázdné = nikdo, můžeš začít)_
 | 19. 8. | Patička kalkulace bere sazbu z výběru DPH (`propagateKalkToOffer`) — dřív tam bylo natvrdo „12 %“, takže nabídka na 21 % lhala v součtu |
 | 19. 8. | Fotky do katalogu: `stridace/mps.jpg` (off-grid měnič MPS-5500H), `baterie/vipow.jpg` (LiFePO4 BAT0499) |
 | 19. 8. | Fotky do katalogu: `stridace/victron-easysolar-ii.jpg`, `baterie/pylontech-us5000.jpg` (pozor: `baterie/pylontech.jpg` je Force H tower, ne US5000) |
+| 31. 8. | Šipka `<select>` u karty Konstrukce se v tisku skrývá (`background-image: none` + `padding-right: 0` v `@media print`) — v PDF je neklikatelná a text teď sedí na střed |
 | 19. 8. | Právní názvy firem opraveny dle OR: **BF technology s.r.o.** a **BFK Systems s.r.o.** (statické texty na str. 1/4, patička, `FIRMY` v přepínači, alt/title, `<title>`) |
 
 ## Co zbývá
