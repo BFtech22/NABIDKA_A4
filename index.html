@@ -2516,6 +2516,7 @@
             <option value="hak">Střešní hák</option>
             <option value="falc">Falcová příchytka</option>
             <option value="zatez">Zátěžová konstrukce</option>
+            <option value="kombi">Kombišroub</option>
           </select>
         </div>
         <div class="kalk-detail-field">
@@ -2657,7 +2658,7 @@
     </div>
   </div>
 
-  <div class="banner"><div class="left">Použité technologie</div><div class="right"></div></div>
+  <div class="banner"><div class="left">Použité technologie</div><div class="right">Fotografie jsou ilustrační</div></div>
 
   <div class="cards" data-save="cards">
     <div class="card card-panel">
@@ -3411,11 +3412,22 @@
       if (dds[i]) dds[i].textContent = v;
     });
 
-    // Try to load the matching photo
+    // Fotka: nejdřív z katalogu (uživatel si ji tam mohl vlastní uložit),
+    // teprve když tam žádná není, sáhni po souboru v /img.
     const slot = card.querySelector('.product-photo');
-    const src = `img/${t.file}`;
-    const exists = await preloadImg(src);
-    if (exists && slot) setPhoto(slot, src);
+    if (slot) {
+      let src = '';
+      try {
+        const polozka = (typeof KATALOG !== 'undefined' && KATALOG.konstrukce || [])
+          .find(p => p && p.vyrobce === t.name && p.foto);
+        if (polozka) src = polozka.foto;
+      } catch(e) {}
+      if (!src || !(await preloadImg(src))) {
+        const soubor = `img/${t.file}`;
+        src = (await preloadImg(soubor)) ? soubor : '';
+      }
+      if (src) setPhoto(slot, src);
+    }
 
     // Persist the chosen type
     if (typeof syncMainTableForCard === 'function') syncMainTableForCard(card);
@@ -4535,7 +4547,7 @@
 
   // ---------- Save / Load JSON file (for sharing drafts) ----------
   function collectState() {
-    const state = { version: 2, savedAt: new Date().toISOString(), inputs: {}, html: {}, photos: {}, kalk: {}, kalkTables: {}, detaily: {}, flags: {} };
+    const state = { version: 3, savedAt: new Date().toISOString(), inputs: {}, html: {}, photos: {}, kalk: {}, kalkSelects: {}, kalkTables: {}, detaily: {}, flags: {} };
     // Form-screen inputs
     document.querySelectorAll('input[data-field][data-form="1"], textarea[data-field][data-form="1"], select[data-field][data-form="1"]').forEach(inp => {
       state.inputs[inp.dataset.field] = inp.value;
@@ -4555,6 +4567,11 @@
     document.querySelectorAll('#kalkulator-screen input[id^="kalk-"]').forEach(el => {
       state.kalk[el.id] = el.value;
     });
+    // Selecty kalkulátoru zvlášť — hlavně kalk-prace-mode (bez/vč. DPH).
+    // Bez nich se po načtení cena práce přepočítala v jiném režimu a celková cena nesouhlasila.
+    document.querySelectorAll('#kalkulator-screen select[id^="kalk-"]').forEach(el => {
+      state.kalkSelects[el.id] = el.value;
+    });
     document.querySelectorAll('[data-kalk-table]').forEach(t => {
       const rows = [];
       t.querySelectorAll('tbody tr').forEach(r => {
@@ -4572,6 +4589,12 @@
     state.flags.platnostManual = document.getElementById('platnost-manual')?.checked || false;
     state.flags.dotaceEnabled  = document.getElementById('kalk-dotace-enable')?.checked || false;
     state.flags.konstrukceType = document.getElementById('konstrukce-type-select')?.value || 'hak';
+    // Fotka klienta na titulce — zobrazení i velikost patří k nabídce, ne k prohlížeči
+    const kfw = document.getElementById('klient-foto-wrap');
+    if (kfw) {
+      state.flags.klientFotoOn   = !kfw.classList.contains('hidden');
+      state.flags.klientFotoSize = kfw.classList.contains('size-wide') ? 'wide' : 'small';
+    }
     // Katalog + galerie fotek jedou s nabídkou — aby se daly přenést na jiný
     // počítač a přežily i vymazání dat prohlížeče
     try {
@@ -4658,6 +4681,15 @@
             if (el) el.value = v;
           });
         }
+        // Selecty kalkulátoru (starší soubory je nemají — pak zůstane výchozí)
+        if (state.kalkSelects) {
+          Object.entries(state.kalkSelects).forEach(([id, v]) => {
+            const el = document.getElementById(id);
+            if (!el) return;
+            if (v && ![...el.options].some(o => o.value === v)) el.insertBefore(new Option(v, v), el.firstChild);
+            el.value = v;
+          });
+        }
         // Kalkulátor tabulky (tech, konstr)
         if (state.kalkTables) {
           Object.entries(state.kalkTables).forEach(([cat, rows]) => {
@@ -4716,9 +4748,26 @@
           const kSel = document.getElementById('konstrukce-type-select');
           if (kSel) applyKonstrukceType(kSel);
         }
+        // Fotka klienta: u starších souborů se řiď tím, jestli fotka v nabídce je
+        if (typeof toggleKlientFotoSize === 'function' && state.flags?.klientFotoSize) {
+          toggleKlientFotoSize(state.flags.klientFotoSize);
+        }
+        if (typeof toggleKlientFoto === 'function') {
+          const maFoto = !!(state.photos || {}).hero;
+          toggleKlientFoto(state.flags?.klientFotoOn !== undefined ? !!state.flags.klientFotoOn : maFoto);
+        }
+        // Jednotkové ceny dopočítej z načtených celkových
+        if (typeof prepocitejJedn === 'function') {
+          document.querySelectorAll('[data-kalk-table] tbody tr').forEach(r => prepocitejJedn(r, 'bez'));
+        }
         if (typeof recalcKalk === 'function') recalcKalk();
         saveState();
-        flashStatus(`📂 Načteno: ${file.name}`);
+        // Starší soubor bez uloženého režimu práce — ať uživatel neřeší cenu naslepo
+        if (!state.kalkSelects) {
+          flashStatus('📂 Načteno — starší soubor: zkontroluj v kalkulátoru „Práce bez/vč. DPH"');
+        } else {
+          flashStatus(`📂 Načteno: ${file.name}`);
+        }
       } catch (err) {
         alert('Soubor není platná BFT nabídka (JSON):\n' + err.message);
       }
@@ -4860,6 +4909,7 @@
   }
 
   // ---------- Persist to localStorage ----------
+  let varovaniPlnoUkazano = false;
   function saveState() {
     const state = { inputs: {}, html: {}, photos: {} };
     document.querySelectorAll('input[data-field][data-form="1"], textarea[data-field][data-form="1"], select[data-field][data-form="1"]').forEach(inp => {
@@ -4888,8 +4938,18 @@
         state.photos[slot.dataset.photo] = attr;
       }
     });
-    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
-    catch(e) { console.warn('localStorage full:', e); }
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); varovaniPlnoUkazano = false; }
+    catch(e) {
+      console.warn('localStorage full:', e);
+      // Tiché selhání znamenalo, že se přestalo ukládat úplně všechno a nikdo to nepoznal.
+      if (!varovaniPlnoUkazano) {
+        varovaniPlnoUkazano = true;
+        flashStatus('⚠ Úložiště prohlížeče je plné — změny se NEUKLÁDAJÍ! Ulož nabídku do souboru.');
+        setTimeout(() => alert('Úložiště prohlížeče je plné.\n\nRozpracovaná nabídka se do prohlížeče '
+          + 'neuloží a po zavření okna se ztratí.\n\nUlož ji tlačítkem 💾 Uložit do souboru. '
+          + 'Nejčastější příčina jsou velké fotky v nabídce.'), 100);
+      }
+    }
   }
   function loadState() {
     const raw = localStorage.getItem(STORAGE_KEY);
@@ -5061,12 +5121,16 @@
   // Uložené karty (data-save="cards") jsou z dřívější verze a nemají novější volby
   // konstrukce. Zahodit celý blok nelze — přišel bys o úpravy karet. Doplní se tedy jen chybějící.
   function ensureKonstrukceOptions() {
-    const sel = document.getElementById('konstrukce-type-select');
-    if (!sel || typeof KONSTRUKCE_TYPES === 'undefined') return;
-    Object.entries(KONSTRUKCE_TYPES).forEach(([val, def]) => {
-      if (![...sel.options].some(o => o.value === val)) {
-        sel.appendChild(new Option(def.name, val));
-      }
+    if (typeof KONSTRUKCE_TYPES === 'undefined') return;
+    // Karta na str. 3 i řádek v kalkulátoru (sekce 6) — oba selecty musí nabízet totéž
+    const selecty = [
+      document.getElementById('konstrukce-type-select'),
+      document.querySelector('select[data-detail-target="card-konstrukce:select-konstrukce"]'),
+    ].filter(Boolean);
+    selecty.forEach(sel => {
+      Object.entries(KONSTRUKCE_TYPES).forEach(([val, def]) => {
+        if (![...sel.options].some(o => o.value === val)) sel.appendChild(new Option(def.name, val));
+      });
     });
   }
 
