@@ -422,6 +422,15 @@
     column-gap: 30px;
     row-gap: 6px;
   }
+  .scope-note {
+    margin-top: 10px;
+    padding: 7px 10px;
+    border-left: 3px solid var(--yellow);
+    background: var(--cream);
+    font-size: 8.6pt;
+    line-height: 1.35;
+    color: var(--text);
+  }
   .scope div {
     font-size: 10pt;
     padding-left: 16px;
@@ -2015,6 +2024,7 @@
   .page.page-compact .scope div { font-size: 9.5pt; padding-left: 16px; }
   .page.page-compact .add-scope { margin-top: 8px; padding: 5px 14px; font-size: 9.5pt; }
   .page.page-compact .pay-cards { margin-top: 12px; gap: 11px; }
+  .page.page-compact .scope-note { margin-top: 8px; padding: 6px 9px; font-size: 8.2pt; }
   .page.page-compact .pay-card .top { padding: 9px 12px; }
   .page.page-compact .pay-card .top .roman { font-size: 11pt; }
   .page.page-compact .pay-card .top .pct { font-size: 15pt; margin-left: 7px; }
@@ -2872,6 +2882,10 @@
     <div contenteditable="true">Zajištěná technická podpora a servis<button class="del-scope no-print" title="Odebrat položku">✕</button></div>
   </div>
   <button class="add-scope no-print" type="button" onclick="addScopeItem()">+ Přidat položku</button>
+
+  <!-- Natvrdo v šabloně. Záměrně MIMO data-save="scope" — uvnitř by ji šlo smazat
+       tlačítkem ✕ a starší uložená nabídka by ji při načtení přepsala pryč. -->
+  <div class="scope-note">Úpravy domovních rozvodů, stavební úpravy a výkopové práce nejsou v ceně díla. Prostupy zdmi jsou zahrnuty v ceně.</div>
 
   <div class="banner"><div class="left">Platební podmínky</div><div class="right"></div></div>
   <div class="pay-cards" data-save="pay-cards">
