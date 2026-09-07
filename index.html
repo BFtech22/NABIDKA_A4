@@ -264,6 +264,8 @@
   /* Supplier strip */
   .supplier {
     margin-top: 14px;
+    flex-shrink: 0;   /* .page je flex sloupec; bez tohohle se box smrskne
+                         a overflow:hidden uřízne poslední řádek (servis@…) */
     display: grid;
     grid-template-columns: 1.05fr 1.1fr 0.9fr;
     background: var(--brand-dark);
@@ -281,6 +283,15 @@
   .supplier .name { font-size: 12pt; font-weight: 700; }
   .supplier .line { font-size: 9pt; margin-top: 2px; }
   .supplier .role { font-weight: 700; color: var(--accent); font-size: 9pt; }
+
+  .cards-note {
+    flex-shrink: 0;
+    margin-top: 7px;
+    text-align: right;
+    font-size: 8pt;
+    font-style: italic;
+    color: #8A8A8A;
+  }
 
   /* ============= BANNER ============= */
   .banner {
@@ -519,6 +530,7 @@
   /* Footer */
   .footer {
     margin-top: 16px;
+    flex-shrink: 0;   /* totéž — jinak se ořízne řádek IČO / DIČ */
     display: grid;
     grid-template-columns: 1.05fr 1.1fr 0.9fr;
     border-radius: 4px;
@@ -2668,7 +2680,7 @@
     </div>
   </div>
 
-  <div class="banner"><div class="left">Použité technologie</div><div class="right">Fotografie jsou ilustrační</div></div>
+  <div class="banner"><div class="left">Použité technologie</div><div class="right"></div></div>
 
   <div class="cards" data-save="cards">
     <div class="card card-panel">
@@ -2779,6 +2791,9 @@
       </div>
     </div>
   </div>
+
+  <!-- Natvrdo, mimo data-save="cards" — uvnitř by ji přepsala starší uložená nabídka. -->
+  <div class="cards-note">Fotografie produktů jsou ilustrační.</div>
 </section>
 
 <!-- =========================== PAGE 3 — CENOVÁ KALKULACE + SOUHRN =========================== -->
