@@ -4806,13 +4806,24 @@
     reader.readAsText(file);
   };
 
+  // Klidový text stavového pole. Dřív se bral z elementu při každém volání — když
+  // hláška naskočila podruhé, uložila se jako „původní" a zůstala viset natrvalo.
+  let statusKlid = null, statusTimer = null;
   function flashStatus(msg) {
     const el = document.getElementById('save-status');
     if (!el) return;
-    const orig = el.textContent;
+    if (statusKlid === null) statusKlid = el.textContent;
+    clearTimeout(statusTimer);
     el.textContent = msg;
     el.style.color = '#8BB855';
-    setTimeout(() => { el.textContent = orig; el.style.color = ''; }, 2500);
+    statusTimer = setTimeout(() => { el.textContent = statusKlid; el.style.color = ''; }, 2500);
+  }
+  function uzitiUlozisteKB() {
+    let n = 0;
+    try { for (const k in localStorage) {
+      if (Object.prototype.hasOwnProperty.call(localStorage, k)) n += k.length + localStorage[k].length;
+    } } catch(e) {}
+    return Math.round(n / 1024);
   }
 
   // ---------- Click-to-upload photo slots ----------
@@ -4843,6 +4854,10 @@
           if (prod) {
             src = await zmensiFoto(src);
             await pridejFotoDoGalerie(prod, src, file.name.replace(/\.[^.]+$/, ''));
+          } else {
+            // Fotka domu a titulky se dřív ukládaly v původní velikosti — snímek z mobilu
+            // má klidně 5 MB a sám o sobě přeteče localStorage. Na tisk stačí 1500 px.
+            src = await zmensiFoto(src, 1500, 0.82);
           }
           setPhoto(slot, src);
           saveState();
@@ -4973,10 +4988,14 @@
       // Tiché selhání znamenalo, že se přestalo ukládat úplně všechno a nikdo to nepoznal.
       if (!varovaniPlnoUkazano) {
         varovaniPlnoUkazano = true;
-        flashStatus('⚠ Úložiště prohlížeče je plné — změny se NEUKLÁDAJÍ! Ulož nabídku do souboru.');
-        setTimeout(() => alert('Úložiště prohlížeče je plné.\n\nRozpracovaná nabídka se do prohlížeče '
-          + 'neuloží a po zavření okna se ztratí.\n\nUlož ji tlačítkem 💾 Uložit do souboru. '
-          + 'Nejčastější příčina jsou velké fotky v nabídce.'), 100);
+        flashStatus('⚠ Úložiště prohlížeče je plné (' + uzitiUlozisteKB() + ' kB) — změny se NEUKLÁDAJÍ!');
+        setTimeout(() => alert('Úložiště prohlížeče je plné — zabráno ' + uzitiUlozisteKB() + ' kB.\n\n'
+          + 'Rozpracovaná nabídka se do prohlížeče neuloží a po zavření okna se ztratí.\n\n'
+          + 'Co udělat:\n'
+          + '1. Ulož nabídku tlačítkem „💾 Uložit nabídku" do souboru.\n'
+          + '2. Dej „↺ Reset" — nabídne i vyčištění galerie fotek.\n'
+          + '3. Nabídku načti zpět tlačítkem „📂 Načíst nabídku".\n\n'
+          + 'Místo zabírají hlavně nahrané fotky.'), 100);
       }
     }
   }
@@ -5008,14 +5027,28 @@
 
   // ---------- Reset ----------
   window.resetAll = function() {
-    if (!confirm('Smazat všechny vyplněné hodnoty a obnovit šablonu?\n\n(Vymaže hlavní stav + kalkulátor + detaily + všechny checkboxy)')) return;
-    // Vymazat VŠECHNY klíče začínající STORAGE_KEY (kalk, detaily, manual, dotace, konstrukce, vykonManual, …)
+    if (!confirm('Smazat všechny vyplněné hodnoty a obnovit šablonu?\n\n'
+      + 'Vymaže stav nabídky, kalkulátor, detaily a checkboxy.\n'
+      + 'Katalog produktů a galerie fotek ZŮSTANOU zachovány.')) return;
+    // Katalog a galerie jsou knihovna produktů budovaná napříč nabídkami — reset nabídky
+    // je nesmí vzít s sebou. Dřív je bral a uložený produkt po resetu zmizel.
+    const chranene = [KATALOG_KEY, GALERIE_KEY];
     const keysToRemove = [];
     for (let i = 0; i < localStorage.length; i++) {
       const key = localStorage.key(i);
-      if (key && key.startsWith(STORAGE_KEY)) keysToRemove.push(key);
+      if (key && key.startsWith(STORAGE_KEY) && !chranene.includes(key)) keysToRemove.push(key);
     }
     keysToRemove.forEach(k => localStorage.removeItem(k));
+
+    // Když je úložiště i tak přeplněné, nabídni hlubší úklid (nejdřív si udělej zálohu katalogu)
+    if (uzitiUlozisteKB() > 3500) {
+      if (confirm('Úložiště je pořád plné (' + uzitiUlozisteKB() + ' kB).\n\n'
+        + 'Smazat i galerii nahraných fotek a katalog produktů?\n\n'
+        + 'POZOR: vlastní položky katalogu se ztratí. Pokud je chceš zachovat, dej Zrušit, '
+        + 'v Katalogu klikni na „⬇ Záloha do souboru" a Reset zopakuj.')) {
+        chranene.forEach(k => localStorage.removeItem(k));
+      }
+    }
     location.reload();
   };
 
