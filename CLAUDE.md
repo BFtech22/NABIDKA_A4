@@ -82,6 +82,7 @@ _(prázdné = nikdo, můžeš začít)_
 | 19. 8. | Fotky do katalogu: `stridace/victron-easysolar-ii.jpg`, `baterie/pylontech-us5000.jpg` (pozor: `baterie/pylontech.jpg` je Force H tower, ne US5000) |
 | 31. 8. | Šipka `<select>` u karty Konstrukce se v tisku skrývá (`background-image: none` + `padding-right: 0` v `@media print`) — v PDF je neklikatelná a text teď sedí na střed |
 | 19. 8. | Právní názvy firem opraveny dle OR: **BF technology s.r.o.** a **BFK Systems s.r.o.** (statické texty na str. 1/4, patička, `FIRMY` v přepínači, alt/title, `<title>`) |
+| 22. 9. | Fotky do katalogu: `stridace/solax-x3-ultra.jpg`, `baterie/solax-t-bat-hs51.jpg` (oficiální fota SolaX, 700 px JPEG na bílé). Zatím **necommitnuté** — v živém kalkulátoru jsou zároveň jako data: URI v katalogu, takže fungují i bez pushe |
 
 ## Co zbývá
 
