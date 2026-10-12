@@ -5,7 +5,7 @@ Když soubor chybí, výrobce se v galerii prostě nezobrazí — nic se nerozbi
 
 ```
 img/produkty/
-  panely/      trina.jpg ✅   canadian-solar.jpg ❌   jinkosolar.jpg ❌   longi.jpg ❌
+  panely/      trina.jpg ✅   dmegc_dm450m10rt.jpg ✅ (zatím jen pro generátor, ne v katalogu)   canadian-solar.jpg ❌   jinkosolar.jpg ❌   longi.jpg ❌
   stridace/    solinteg.jpg ✅   sungrow.jpg ❌   solax.jpg ❌
   baterie/     dyness-tower.jpg ✅   dyness-stack.jpg ✅   pylontech.jpg ✅   solinteg.jpg ❌
   wallboxy/    solinteg-s11.jpg ✅

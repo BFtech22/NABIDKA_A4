@@ -90,3 +90,4 @@ _(prázdné = nikdo, můžeš začít)_
   baterie Solinteg — viz `img/produkty/README.md`
 - Doplnit parametry u těch samých položek (rozměry, Wp, výkony)
 - Zvážit, jestli IČO/DIČ nechat na straně 4 dvakrát (blok Dodavatel + patička)
+| 12. 10. | Fotka panelu `img/produkty/panely/dmegc_dm450m10rt.jpg` (DMEGC DM450M10RT-54HBB, zdroj e-shop Solexis) pro nabídky BFK Melichařík; index.html beze změny |
