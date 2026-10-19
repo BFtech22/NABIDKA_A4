@@ -91,3 +91,4 @@ _(prázdné = nikdo, můžeš začít)_
 - Doplnit parametry u těch samých položek (rozměry, Wp, výkony)
 - Zvážit, jestli IČO/DIČ nechat na straně 4 dvakrát (blok Dodavatel + patička)
 | 12. 10. | Fotka panelu `img/produkty/panely/dmegc_dm450m10rt.jpg` (DMEGC DM450M10RT-54HBB, zdroj e-shop Solexis) pro nabídky BFK Melichařík; index.html beze změny |
+| 14. 10. | `.scope-note` (str. 4, mimo data-save): doplněna povinnost investora zajistit před instalací internet (Wi-Fi/LAN) — globální pravidlo uživatele pro všechny FVE nabídky BFT i BFK |
