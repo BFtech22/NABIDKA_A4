@@ -442,6 +442,30 @@
     line-height: 1.35;
     color: var(--text);
   }
+  /* Str. 3 pod cenou — co investor zajistí před instalací (internet, úklid). */
+  .prep-box {
+    margin-top: 16px;
+    padding: 9px 13px 10px;
+    border: 1.5px solid var(--brand);
+    border-left-width: 6px;
+    border-radius: 3px;
+    background: var(--cream);
+    color: var(--text);
+    font-size: 9.2pt;
+    line-height: 1.4;
+    break-inside: avoid;
+  }
+  .prep-box .prep-title {
+    font-weight: 800;
+    font-size: 10pt;
+    text-transform: uppercase;
+    letter-spacing: .03em;
+    color: var(--brand-dark);
+    margin-bottom: 6px;
+  }
+  .prep-box .prep-title::before { content: "⚠ "; color: var(--brand); }
+  .prep-box .prep-items { display: grid; grid-template-columns: 1fr 1fr; column-gap: 22px; }
+  .prep-box .prep-items b { color: var(--brand-dark); }
   .scope div {
     font-size: 10pt;
     padding-left: 16px;
@@ -2862,6 +2886,16 @@
       <tr class="total"><td colspan="2">Celková cena po odečtení dotace a slevy</td><td contenteditable="true">368 080 Kč</td></tr>
     </tfoot>
   </table>
+
+  <!-- Globální pravidlo BFT i BFK (20. 10. 2026): co musí investor zajistit před instalací.
+       Natvrdo a mimo data-save — starší uložená nabídka ho nesmí přepsat ani smazat. -->
+  <div class="prep-box">
+    <div class="prep-title">Před zahájením instalace zajistí investor</div>
+    <div class="prep-items">
+      <div><b>Internet u střídače</b> – funkční připojení (Wi-Fi nebo LAN) přímo v místě instalace střídače. Bez něj nelze zprovoznit monitoring FVE v cloudu, registraci záruky ani vzdálený servis.</div>
+      <div><b>Uklizené pracovní prostory</b> – místnosti a místa, kde se bude pracovat (střídač, baterie, rozvaděče, trasy kabelů, přístup na střechu či půdu), vyklizené a volně přístupné. Věci, které by překážely nebo se mohly ušpinit či poškodit, prosíme předem odklidit.</div>
+    </div>
+  </div>
 </section>
 
 <!-- =========================== PAGE 4 — ROZSAH + PLATBY + SPOLUPRÁCE + KONTAKTY =========================== -->
@@ -2899,8 +2933,9 @@
   <button class="add-scope no-print" type="button" onclick="addScopeItem()">+ Přidat položku</button>
 
   <!-- Natvrdo v šabloně. Záměrně MIMO data-save="scope" — uvnitř by ji šlo smazat
-       tlačítkem ✕ a starší uložená nabídka by ji při načtení přepsala pryč. -->
-  <div class="scope-note">Úpravy domovních rozvodů, stavební úpravy a výkopové práce nejsou v ceně díla. Prostupy zdmi jsou zahrnuty v ceně. <b>Před zahájením instalace zajistí investor v místě instalace funkční připojení k internetu (Wi-Fi nebo LAN)</b> – nutné pro monitoring FVE v cloudu, registraci záruky a vzdálený servis.</div>
+       tlačítkem ✕ a starší uložená nabídka by ji při načtení přepsala pryč.
+       Internet a úklid jsou v rámečku .prep-box na str. 3 pod cenou. -->
+  <div class="scope-note">Úpravy domovních rozvodů, stavební úpravy a výkopové práce nejsou v ceně díla. Prostupy zdmi jsou zahrnuty v ceně.</div>
 
   <div class="banner"><div class="left">Platební podmínky</div><div class="right"></div></div>
   <div class="pay-cards" data-save="pay-cards">
